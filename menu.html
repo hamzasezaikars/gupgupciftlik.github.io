@@ -1,0 +1,2113 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PatioTime - Menü</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Helvetica Neue', Arial, sans-serif; 
+      color: #fff; 
+      background: #0a0a0a;
+      line-height: 1.6;
+    }
+    
+    /* Navbar */
+    nav {
+      display: flex; 
+      flex-direction: column;
+      align-items: center;
+      padding: 15px 0;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      width: 70%;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .main-logo {
+      font-size: 2.5rem;
+      font-weight: bold;
+      letter-spacing: 3px;
+      color: #fff;
+      text-transform: uppercase;
+      font-family: 'Times New Roman', Times, serif;
+    }
+    
+    .subtitle {
+      font-size: 0.9rem;
+      letter-spacing: 8px;
+      margin-top: 5px;
+      color: rgba(255,255,255,0.8);
+      text-transform: uppercase;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .back-btn:hover {
+      color: #ffd700;
+    }
+
+    /* Hero Section */
+    .menu-hero {
+      height: 60vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .menu-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                  url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fHJlc3RhdXJhbnQlMjBmb29kfGVufDB8fDB8fHww&auto=format&fit=crop&w=1200&q=60');
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+    }
+    
+    .menu-hero-content {
+      text-align: center;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+    
+    .menu-hero-content h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      font-family: 'Times New Roman', Times, serif;
+      color: #ffd700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+    
+    .menu-hero-content p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 30px;
+    }
+
+    /* Menu Tabs */
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0 30px;
+      flex-wrap: wrap;
+    }
+    
+    .tab-btn {
+      padding: 12px 25px;
+      margin: 0 10px 10px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .tab-btn:hover, .tab-btn.active {
+      background: #ffd700;
+      color: #000;
+      border-color: #ffd700;
+    }
+
+    /* Menu Sections */
+    .menu-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .menu-section {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .menu-section.active {
+      display: block;
+    }
+    
+    .menu-category {
+      margin-bottom: 60px;
+    }
+    
+    .menu-category h2 {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      color: #ffd700;
+      font-family: 'Times New Roman', Times, serif;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    /* YENİ: Başlık altı fotoğraflar */
+    .category-image {
+      width: 100%;
+      height: 300px;
+      margin: 20px 0 40px;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.5s ease, transform 1.2s ease;
+    }
+    
+    .category-image.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .category-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .menu-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+    }
+    
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.1);
+    }
+    
+    .menu-item-content {
+      flex: 1;
+      padding-right: 20px;
+    }
+    
+    .menu-item-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+    
+    .menu-item-desc {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    
+    .menu-item-price {
+      color: #ffd700;
+      font-size: 1.2rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    
+    .menu-item-badge {
+      display: inline-block;
+      background: #ffd700;
+      color: #000;
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      margin-left: 10px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+
+    /* Footer */
+    footer { 
+      background: #111; 
+      padding: 50px 20px; 
+      text-align: center; 
+      margin-top: 80px;
+    }
+    
+    footer p {
+      margin: 10px 0;
+    }
+    
+    .social { 
+      margin-top: 20px;
+    }
+    
+    .social a { 
+      margin: 0 15px; 
+      color: #ffd700;
+      font-weight: bold;
+      transition: 0.3s;
+      font-size: 1.2rem;
+    }
+    
+    .social a:hover {
+      color: #fff;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        width: 90%;
+      }
+      
+      .main-logo {
+        font-size: 1.8rem;
+      }
+      
+      .menu-hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .menu-items {
+        grid-template-columns: 1fr;
+      }
+      
+      .menu-item {
+        flex-direction: column;
+      }
+      
+      .menu-item-price {
+        margin-top: 10px;
+      }
+      
+      .tab-btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .category-image {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="back-btn">←</a>
+    <div class="main-logo">PATIO.TIME</div>
+    <div class="subtitle">BAR EST1998</div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="menu-hero">
+    <div class="menu-hero-content">
+      <h1>Menümüz</h1>
+      <p>Özenle hazırlanmış lezzetler ve birinci sınıf içecekler</p>
+    </div>
+  </section>
+
+  <!-- Menu Tabs -->
+  <div class="menu-tabs">
+    <button class="tab-btn active" data-tab="balik">Balık</button>
+    <button class="tab-btn" data-tab="anayemek">Ana Yemek</button>
+    <button class="tab-btn" data-tab="atistirmalik">Atıştırmalık</button>
+    <button class="tab-btn" data-tab="meze">Mezeler</button>
+    <button class="tab-btn" data-tab="salata">Salatalar</button>
+    <button class="tab-btn" data-tab="yancilar">Yancılar</button>
+    <button class="tab-btn" data-tab="sicakicecek">Sıcak İçecek</button>
+    <button class="tab-btn" data-tab="sogukicecek">Soğuk İçecek</button>
+    <button class="tab-btn" data-tab="viski">Viskiler</button>
+    <button class="tab-btn" data-tab="raki">Rakılar</button>
+    <button class="tab-btn" data-tab="cin">Cin</button>
+    <button class="tab-btn" data-tab="vodka">Vodka</button>
+    <button class="tab-btn" data-tab="tekila">Tekila</button>
+    <button class="tab-btn" data-tab="sarap">Şarap</button>
+    <button class="tab-btn" data-tab="likor">Likör & Rom</button>
+    <button class="tab-btn" data-tab="kokteyl">Kokteyl</button>
+  </div>
+
+  <!-- Menu Container -->
+  <div class="menu-container">
+    <!-- Balık -->
+    <div class="menu-section active" id="balik">
+      <div class="menu-category">
+        <h2>Balık</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmlzaCUyMGZvb2R8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1200&q=60" alt="Balık">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Çipura</h3>
+            </div>
+            <div class="menu-item-price">550₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Levrek Izgara</h3>
+            </div>
+            <div class="menu-item-price">550₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Ana Yemek -->
+    <div class="menu-section" id="anayemek">
+      <div class="menu-category">
+        <h2>Ana Yemek</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fG1haW4lMjBjb3Vyc2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1200&q=60" alt="Ana Yemek">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Saç Tava</h3>
+            </div>
+            <div class="menu-item-price">650₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Yaprak Kavurma</h3>
+            </div>
+            <div class="menu-item-price">650₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Kuzu Şiş</h3>
+            </div>
+            <div class="menu-item-price">700₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Yaprak Ciğer</h3>
+            </div>
+            <div class="menu-item-price">450₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Izgara Köfte</h3>
+            </div>
+            <div class="menu-item-price">390₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tavuk Şinitzel</h3>
+            </div>
+            <div class="menu-item-price">370₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tavuk Şiş</h3>
+            </div>
+            <div class="menu-item-price">370₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tavuk Sote</h3>
+            </div>
+            <div class="menu-item-price">390₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Mantı</h3>
+            </div>
+            <div class="menu-item-price">320₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tavuk Kanat</h3>
+            </div>
+            <div class="menu-item-price">400₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Kuzu Pirzola</h3>
+            </div>
+            <div class="menu-item-price">700₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Karışık Izgara</h3>
+              <p class="menu-item-desc">80 gr antrikot, 60 gr kuzu şiş, 2 tek köfte, 2 tavuk kanat, 2 tavuk şiş, 2 sucuk</p>
+            </div>
+            <div class="menu-item-price">1000₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Atıştırmalık -->
+    <div class="menu-section" id="atistirmalik">
+      <div class="menu-category">
+        <h2>Atıştırmalıklar</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YXBwZXRpemVyc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=1200&q=60" alt="Atıştırmalıklar">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Soğan Halka</h3>
+            </div>
+            <div class="menu-item-price">220₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Patates Kroket</h3>
+            </div>
+            <div class="menu-item-price">220₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Sosis Tava</h3>
+            </div>
+            <div class="menu-item-price">280₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Sigara Böreği</h3>
+            </div>
+            <div class="menu-item-price">220₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Patates Tava</h3>
+            </div>
+            <div class="menu-item-price">180₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Paçanga Böreği</h3>
+            </div>
+            <div class="menu-item-price">180₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Elma Dilim Patates</h3>
+            </div>
+            <div class="menu-item-price">180₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Çıtır Tavuk</h3>
+            </div>
+            <div class="menu-item-price">280₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Bira Tabağı (2-3 Kişilik)</h3>
+              <p class="menu-item-desc">Patates tava, Elma dilim patates, 2 Sigara böreği, 2 Sosis, 2 Soğan halka, 2 Çıtır tavuk, 2 Patates kroket, 2 Chedar peynir topu, 2 Mozerella stick, 2 nugget</p>
+            </div>
+            <div class="menu-item-price">450₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Börek Sepeti</h3>
+            </div>
+            <div class="menu-item-price">250₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Mozerella Stick</h3>
+            </div>
+            <div class="menu-item-price">280₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Chedar Peynir Topları</h3>
+            </div>
+            <div class="menu-item-price">280₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mezeler -->
+    <div class="menu-section" id="meze">
+      <div class="menu-category">
+        <h2>Mezeler</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YXBwZXRpemVyc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=1200&q=60" alt="Mezeler">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Şakşuka</h3>
+            </div>
+            <div class="menu-item-price">170₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Süzme Yoğurt</h3>
+            </div>
+            <div class="menu-item-price">170₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Salatalık Turşusu</h3>
+            </div>
+            <div class="menu-item-price">170₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Meyve</h3>
+            </div>
+            <div class="menu-item-price">180₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Kuru Cacık</h3>
+            </div>
+            <div class="menu-item-price">170₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Kavun</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Karışık Turşu</h3>
+            </div>
+            <div class="menu-item-price">170₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Kapya Biber</h3>
+            </div>
+            <div class="menu-item-price">170₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Haydari</h3>
+            </div>
+            <div class="menu-item-price">170₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Ezine Peynir</h3>
+            </div>
+            <div class="menu-item-price">120₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Cacık</h3>
+            </div>
+            <div class="menu-item-price">170₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Atom</h3>
+            </div>
+            <div class="menu-item-price">180₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Arnavut Ciğeri</h3>
+            </div>
+            <div class="menu-item-price">380₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Pilaki</h3>
+            </div>
+            <div class="menu-item-price">170₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Hardallı Patates Salatası</h3>
+            </div>
+            <div class="menu-item-price">170₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Patlıcan Salata</h3>
+            </div>
+            <div class="menu-item-price">170₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Rus Salatası</h3>
+            </div>
+            <div class="menu-item-price">170₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Deniz Börülcesi</h3>
+            </div>
+            <div class="menu-item-price">170₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Pancar Turşusu</h3>
+            </div>
+            <div class="menu-item-price">170₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Abaza Peyniri</h3>
+            </div>
+            <div class="menu-item-price">250₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Eski Kaşar</h3>
+            </div>
+            <div class="menu-item-price">220₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Salatalar -->
+    <div class="menu-section" id="salata">
+      <div class="menu-category">
+        <h2>Salatalar</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2FsYWR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1200&q=60" alt="Salatalar">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Çoban Salata (Tek Kişilik)</h3>
+            </div>
+            <div class="menu-item-price">180₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Çoban Salata Duble</h3>
+            </div>
+            <div class="menu-item-price">290₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Roka Salatası (Tek Kişilik)</h3>
+            </div>
+            <div class="menu-item-price">180₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Roka Salatası Duble</h3>
+            </div>
+            <div class="menu-item-price">290₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Mevsim Salata (Tek Kişilik)</h3>
+            </div>
+            <div class="menu-item-price">180₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Mevsim Salata Duble</h3>
+            </div>
+            <div class="menu-item-price">290₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Söğüş</h3>
+              <p class="menu-item-desc">Domates, roka, salatalık, maydonoz</p>
+            </div>
+            <div class="menu-item-price">120₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Yancılar -->
+    <div class="menu-section" id="yancilar">
+      <div class="menu-category">
+        <h2>Yancılar</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHNuYWNrc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=1200&q=60" alt="Yancılar">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Peyman Antep Fıstığı</h3>
+            </div>
+            <div class="menu-item-price">200₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Peyman Fındık</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Peyman Badem</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Peyman Leblebi</h3>
+            </div>
+            <div class="menu-item-price">125₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Peyman Soslu Mısır</h3>
+            </div>
+            <div class="menu-item-price">125₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Peyman Beyaz Leblebi</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Toblerone Çikolata</h3>
+            </div>
+            <div class="menu-item-price">180₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tuzlu Fıstık</h3>
+            </div>
+            <div class="menu-item-price">100₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Ülker Napoliten Çikolata</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Ruffles</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Mısır (Popcorn)</h3>
+            </div>
+            <div class="menu-item-price">100₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Jelibon</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Sıcak İçecekler -->
+    <div class="menu-section" id="sicakicecek">
+      <div class="menu-category">
+        <h2>Sıcak İçecekler</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y29mZmVlfGVufDB8fDB8fHww&auto=format&fit=crop&w=1200&q=60" alt="Sıcak İçecekler">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Americano</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Espresso</h3>
+            </div>
+            <div class="menu-item-price">120₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Türk Kahvesi</h3>
+            </div>
+            <div class="menu-item-price">100₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Çay</h3>
+            </div>
+            <div class="menu-item-price">60₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Soğuk İçecekler -->
+    <div class="menu-section" id="sogukicecek">
+      <div class="menu-category">
+        <h2>Soğuk İçecekler</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGNvbGQlMjBkcmlua3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1200&q=60" alt="Soğuk İçecekler">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Ice Tea</h3>
+            </div>
+            <div class="menu-item-price">100₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Schweppes 1 LT (Lime, Portakal)</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Acılı/Acısız Küçük Şalgam</h3>
+            </div>
+            <div class="menu-item-price">75₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Redbull</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Fanta</h3>
+            </div>
+            <div class="menu-item-price">100₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Sprite</h3>
+            </div>
+            <div class="menu-item-price">100₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Meyveli Soda</h3>
+            </div>
+            <div class="menu-item-price">75₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Acılı/Acısız Büyük Şalgam</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Coca Cola</h3>
+            </div>
+            <div class="menu-item-price">100₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Ayran</h3>
+            </div>
+            <div class="menu-item-price">90₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Meyve Suyu</h3>
+              <p class="menu-item-desc">Şeftali, Portakal, Kayısı</p>
+            </div>
+            <div class="menu-item-price">100₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Su</h3>
+            </div>
+            <div class="menu-item-price">30₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Viskiler -->
+    <div class="menu-section" id="viski">
+      <div class="menu-category">
+        <h2>Viskiler</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvY2t0YWlsJTIwYmFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=1200&q=60" alt="Viskiler">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">JB Duble</h3>
+            </div>
+            <div class="menu-item-price">380₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">JB 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1430₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">JB 50'lik</h3>
+            </div>
+            <div class="menu-item-price">1990₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">JB 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2645₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">JB 100'lük</h3>
+            </div>
+            <div class="menu-item-price">3565₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Ballantines Duble</h3>
+            </div>
+            <div class="menu-item-price">410₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Ballantines 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1750₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Ballantines 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2815₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Ballantines 100'lük</h3>
+            </div>
+            <div class="menu-item-price">3825₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Red Label Duble</h3>
+            </div>
+            <div class="menu-item-price">410₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Red Label 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1540₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Red Label 50'lik</h3>
+            </div>
+            <div class="menu-item-price">2140₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Red Label 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2815₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Red Label 100'lük</h3>
+            </div>
+            <div class="menu-item-price">3825₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Jameson Duble</h3>
+            </div>
+            <div class="menu-item-price">480₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Jameson 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1745₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Jameson 50'lik</h3>
+            </div>
+            <div class="menu-item-price">2250₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Jameson 70'lik</h3>
+            </div>
+            <div class="menu-item-price">3375₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Jameson 100'lük</h3>
+            </div>
+            <div class="menu-item-price">4500₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Chivas Regal Duble</h3>
+            </div>
+            <div class="menu-item-price">575₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Black Label Duble</h3>
+            </div>
+            <div class="menu-item-price">540₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Black Label 35'lik</h3>
+            </div>
+            <div class="menu-item-price">2025₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Black Label 50'lik</h3>
+            </div>
+            <div class="menu-item-price">2890₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Black Label 70'lik</h3>
+            </div>
+            <div class="menu-item-price">3715₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Black Label 100'lük</h3>
+            </div>
+            <div class="menu-item-price">5065₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Jack Daniels Duble</h3>
+            </div>
+            <div class="menu-item-price">480₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Jim Beam 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1690₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Jim Beam 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2890₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Rakılar -->
+    <div class="menu-section" id="raki">
+      <div class="menu-category">
+        <h2>Rakılar</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvY2t0YWlsJTIwYmFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=1200&q=60" alt="Rakılar">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tekirdağ Göbek 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1490₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tekirdağ Göbek 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2625₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Yeni Rakı 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1095₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Yeni Rakı 50'lik</h3>
+            </div>
+            <div class="menu-item-price">1505₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Yeni Rakı 70'lik</h3>
+            </div>
+            <div class="menu-item-price">1915₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tekirdağ Altın Seri 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1390₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tekirdağ Altın Seri 50'lik</h3>
+            </div>
+            <div class="menu-item-price">1915₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tekirdağ Altın Seri 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2340₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tekirdağ Altın Seri 100'lük</h3>
+            </div>
+            <div class="menu-item-price">3020₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Beylerbeyi Mavi 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1340₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Beylerbeyi Mavi 50'lik</h3>
+            </div>
+            <div class="menu-item-price">1820₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Beylerbeyi Mavi 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2380₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Beylerbeyi Mavi 100'lük</h3>
+            </div>
+            <div class="menu-item-price">2920₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Efe Gold 20'lik</h3>
+            </div>
+            <div class="menu-item-price">880₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Efe Gold 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1180₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Efe Gold 50'lik</h3>
+            </div>
+            <div class="menu-item-price">1575₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Efe Gold 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2030₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Efe Gold 100'lük</h3>
+            </div>
+            <div class="menu-item-price">2540₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Beylerbeyi Göbek 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1655₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Beylerbeyi Göbek 50'lik</h3>
+            </div>
+            <div class="menu-item-price">2295₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Beylerbeyi Göbek 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2965₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Beylerbeyi Göbek 100'lük</h3>
+            </div>
+            <div class="menu-item-price">3805₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Yeni Rakı Yeni Seri 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1180₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Yeni Rakı Yeni Seri 50'lik</h3>
+            </div>
+            <div class="menu-item-price">1665₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Yeni Rakı Yeni Seri 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2145₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Yeni Rakı Yeni Seri 100'lük</h3>
+            </div>
+            <div class="menu-item-price">2800₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Beylerbeyi Tera Gold 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1480₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Beylerbeyi Tera Gold 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2540₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Kulüp Rakı Delüks 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1425₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Kulüp Rakı Delüks 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2450₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Yeni Rakı Ala 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1360₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tekirdağ Kavrulmuş Anason 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1360₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tekirdağ Kavrulmuş Anason 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2540₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Efe Yaş Üzüm 70'lik</h3>
+            </div>
+            <div class="menu-item-price">1785₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Kulüp Rakı 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2595₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Altınbaş Rakı 70'lik</h3>
+            </div>
+            <div class="menu-item-price">3020₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Efe 3 Distile 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2635₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Sarı Zeybek Yaş Üzüm 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2380₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Sarı Orjinal 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2465₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Efe Tek İmbik 70'lik</h3>
+            </div>
+            <div class="menu-item-price">1955₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Cin -->
+    <div class="menu-section" id="cin">
+      <div class="menu-category">
+        <h2>Cin</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvY2t0YWlsJTIwYmFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=1200&q=60" alt="Cin">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Gilbey's Gin Duble</h3>
+            </div>
+            <div class="menu-item-price">325₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Gilbey's Gin 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1180₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Gilbey's Gin 50'lik</h3>
+            </div>
+            <div class="menu-item-price">1630₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Gilbey's Gin 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2195₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Gilbey's Gin 100'lük</h3>
+            </div>
+            <div class="menu-item-price">3040₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Gordon's Gin Duble</h3>
+            </div>
+            <div class="menu-item-price">360₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Gordon's Gin 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1450₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Gordon's Gin 50'lik</h3>
+            </div>
+            <div class="menu-item-price">2105₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Gordon's Gin 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2590₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Gordon's Gin 100'lük</h3>
+            </div>
+            <div class="menu-item-price">3375₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Gordon's Gin Pink 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2590₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Beefeater Gin 70'lik</h3>
+            </div>
+            <div class="menu-item-price">3040₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Hendrick's 70 CL</h3>
+            </div>
+            <div class="menu-item-price">4500₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tanqueray 70 CL</h3>
+            </div>
+            <div class="menu-item-price">3490₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Beefeater Gin 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1565₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Vodka -->
+    <div class="menu-section" id="vodka">
+      <div class="menu-category">
+        <h2>Vodka</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvY2t0YWlsJTIwYmFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=1200&q=60" alt="Vodka">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">İstanblue Duble</h3>
+            </div>
+            <div class="menu-item-price">290₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">İstanblue 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1090₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">İstanblue 50'lik</h3>
+            </div>
+            <div class="menu-item-price">1465₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">İstanblue 70'lik</h3>
+            </div>
+            <div class="menu-item-price">1970₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">İstanblue 100'lük</h3>
+            </div>
+            <div class="menu-item-price">2735₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Smirnoff Duble</h3>
+            </div>
+            <div class="menu-item-price">360₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Smirnoff 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1340₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Smirnoff 50'lik</h3>
+            </div>
+            <div class="menu-item-price">1835₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Smirnoff 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2475₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Smirnoff 100'lük</h3>
+            </div>
+            <div class="menu-item-price">3375₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Absolut Duble</h3>
+            </div>
+            <div class="menu-item-price">410₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Absolut 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1520₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Absolut 50'lik</h3>
+            </div>
+            <div class="menu-item-price">2080₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Absolut 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2815₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Absolut 100'lük</h3>
+            </div>
+            <div class="menu-item-price">3825₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Tekila -->
+    <div class="menu-section" id="tekila">
+      <div class="menu-category">
+        <h2>Tekila</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvY2t0YWlsJTIwYmFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=1200&q=60" alt="Tekila">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Sierra Tekila Shot</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Sierra Tekila 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1850₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Sierra Tekila 50'lik</h3>
+            </div>
+            <div class="menu-item-price">1750₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Sierra Tekila 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2300₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Sierra Tekila 100'lük</h3>
+            </div>
+            <div class="menu-item-price">3200₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Olmeca Shot</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Olmeca 35'lik</h3>
+            </div>
+            <div class="menu-item-price">1630₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Olmeca 50'lik</h3>
+            </div>
+            <div class="menu-item-price">2305₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Olmeca 70'lik</h3>
+            </div>
+            <div class="menu-item-price">3040₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Olmeca 100'lük</h3>
+            </div>
+            <div class="menu-item-price">4165₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">El Jimador 70'lik</h3>
+            </div>
+            <div class="menu-item-price">2600₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Şarap -->
+    <div class="menu-section" id="sarap">
+      <div class="menu-category">
+        <h2>Şarap</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHdpbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1200&q=60" alt="Şarap">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Kadeh Kırmızı Şarap</h3>
+            </div>
+            <div class="menu-item-price">250₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Kadeh Beyaz Şarap</h3>
+            </div>
+            <div class="menu-item-price">250₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Kadeh Blush Şarap</h3>
+            </div>
+            <div class="menu-item-price">250₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Likör & Rom -->
+    <div class="menu-section" id="likor">
+      <div class="menu-category">
+        <h2>Likör & Rom</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvY2t0YWlsJTIwYmFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=1200&q=60" alt="Likör & Rom">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Jagermeister Shot</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Jagermeister Jager Boom</h3>
+            </div>
+            <div class="menu-item-price">500₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Bacardi Kahlua Shot</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Bacardi Baileys Shot</h3>
+            </div>
+            <div class="menu-item-price">200₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Keglevich Kavun Shot</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Keglevich Elma Shot</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Kahlua Shot</h3>
+            </div>
+            <div class="menu-item-price">200₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Bacardi Shot</h3>
+            </div>
+            <div class="menu-item-price">200₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Malibu Shot</h3>
+            </div>
+            <div class="menu-item-price">200₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Baileys Shot</h3>
+            </div>
+            <div class="menu-item-price">200₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Kokteyl -->
+    <div class="menu-section" id="kokteyl">
+      <div class="menu-category">
+        <h2>Kokteyl</h2>
+        
+        <div class="category-image">
+          <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y29ja3RhaWx8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1200&q=60" alt="Kokteyl">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Margarita</h3>
+              <p class="menu-item-desc">8 cl tekila, 3 cl portakal likörü, 4 cl limon suyu</p>
+            </div>
+            <div class="menu-item-price">500₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Sea Garden</h3>
+            </div>
+            <div class="menu-item-price">500₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Blue Hawaii</h3>
+              <p class="menu-item-desc">2 cl votka, 2 cl rom, 1.5 cl blue curcao likörü, 8 cl ananas suyu</p>
+            </div>
+            <div class="menu-item-price">500₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Sex On The Beach</h3>
+              <p class="menu-item-desc">2 cl votka, 2 cl şeftali suyu, 4 cl portakal suyu, 8 cl ananas suyu</p>
+            </div>
+            <div class="menu-item-price">500₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Cosmopolitan</h3>
+              <p class="menu-item-desc">4 cl votka, 2 cl şeftali suyu, 4 cl portakal suyu, 8 cl ananas suyu</p>
+            </div>
+            <div class="menu-item-price">500₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Jager Boom</h3>
+            </div>
+            <div class="menu-item-price">500₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Pina Colada</h3>
+              <p class="menu-item-desc">6 cl rom, 6 cl hindistan cevizi, 6 cl ananas suyu</p>
+            </div>
+            <div class="menu-item-price">500₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>📍 Şerefiye, Gaziantep Cd. No:6, 81020 Düzce</p>
+    <p>📞 +90 123 456 7890</p>
+    <div class="social">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    // Tab functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const menuSections = document.querySelectorAll('.menu-section');
+      
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remove active class from all buttons and sections
+          tabBtns.forEach(b => b.classList.remove('active'));
+          menuSections.forEach(s => s.classList.remove('active'));
+          
+          // Add active class to clicked button
+          btn.classList.add('active');
+          
+          // Show corresponding section
+          const tabId = btn.getAttribute('data-tab');
+          document.getElementById(tabId).classList.add('active');
+          
+          // Trigger image animations for the active section
+          setTimeout(animateCategoryImages, 100);
+        });
+      });
+      
+      // Navbar'ı ortala
+      const nav = document.querySelector('nav');
+      if (nav) {
+        nav.style.marginLeft = 'auto';
+        nav.style.marginRight = 'auto';
+      }
+      
+      // Initial animation for images
+      setTimeout(animateCategoryImages, 500);
+    });
+    
+    // YENİ: Kategori fotoğraflarını animasyonla göster
+    function animateCategoryImages() {
+      const categoryImages = document.querySelectorAll('.category-image');
+      
+      categoryImages.forEach((image, index) => {
+        // Sadece aktif sekmedeki görselleri animasyonla göster
+        if (image.closest('.menu-section').classList.contains('active')) {
+          setTimeout(() => {
+            image.classList.add('visible');
+          }, 300 + (index * 200));
+        } else {
+          image.classList.remove('visible');
+        }
+      });
+    }
+    
+    // Scroll ile tetikleme
+    window.addEventListener('scroll', function() {
+      animateCategoryImages();
+    });
+  </script>
+</body>
+</html>
