@@ -308,13 +308,553 @@
         height: 200px;
       }
     }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Helvetica Neue', Arial, sans-serif; 
+      color: #fff; 
+      background: #0a0a0a;
+      line-height: 1.6;
+    }
+    
+    /* Navbar */
+    nav {
+      display: flex; 
+      flex-direction: column;
+      align-items: center;
+      padding: 15px 0;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      width: 70%;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .main-logo {
+      font-size: 2.5rem;
+      font-weight: bold;
+      letter-spacing: 3px;
+      color: #fff;
+      text-transform: uppercase;
+      font-family: 'Times New Roman', Times, serif;
+    }
+    
+    .subtitle {
+      font-size: 0.9rem;
+      letter-spacing: 8px;
+      margin-top: 5px;
+      color: rgba(255,255,255,0.8);
+      text-transform: uppercase;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .back-btn:hover {
+      color: #ffd700;
+    }
+
+    /* Hero Section */
+    .menu-hero {
+      height: 60vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .menu-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                  url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fHJlc3TgYXR1cmFudCUyMGZvb2R8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1200&q=60');
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+    }
+    
+    .menu-hero-content {
+      text-align: center;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+    
+    .menu-hero-content h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      font-family: 'Times New Roman', Times, serif;
+      color: #ffd700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+    
+    .menu-hero-content p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 30px;
+    }
+
+    /* Menu Tabs */
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0 30px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .tab-btn {
+      padding: 12px 25px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 5px;
+    }
+    
+    .tab-btn:hover, .tab-btn.active {
+      background: #ffd700;
+      color: #000;
+      border-color: #ffd700;
+    }
+
+    /* Menu Sections */
+    .menu-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .menu-section {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .menu-section.active {
+      display: block;
+    }
+    
+    .menu-category {
+      margin-bottom: 60px;
+    }
+    
+    .menu-category h2 {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      color: #ffd700;
+      font-family: 'Times New Roman', Times, serif;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    /* YENİ: Kampanya öğeleri için stil */
+    .campaign-item {
+      background: rgba(255,215,0,0.1);
+      border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 25px;
+      transition: transform 0.3s ease;
+    }
+    
+    .campaign-item:hover {
+      transform: translateY(-5px);
+      border-color: #ffd700;
+    }
+    
+    .campaign-title {
+      font-size: 1.6rem;
+      color: #ffd700;
+      margin-bottom: 15px;
+      font-family: 'Times New Roman', Times, serif;
+    }
+    
+    .campaign-price {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 15px;
+      display: block;
+    }
+    
+    .campaign-description {
+      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    
+    .campaign-note {
+      font-style: italic;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+      margin-top: 10px;
+      border-top: 1px dashed rgba(255,255,255,0.2);
+      padding-top: 10px;
+    }
+    
+    /* Başlık altı fotoğraflar */
+    .category-image {
+      width: 100%;
+      height: 300px;
+      margin: 20px 0 40px;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.5s ease, transform 1.2s ease;
+    }
+    
+    .category-image.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .category-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .menu-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+    }
+    
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.1);
+    }
+    
+    .menu-item-content {
+      flex: 1;
+      padding-right: 20px;
+    }
+    
+    .menu-item-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+    
+    .menu-item-desc {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    
+    .menu-item-price {
+      color: #ffd700;
+      font-size: 1.2rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    
+    .menu-item-badge {
+      display: inline-block;
+      background: #ffd700;
+      color: #000;
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      margin-left: 10px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+
+   /* YENİ: Geliştirilmiş Footer */
+footer { 
+  background: linear-gradient(to bottom, #0a0a0a, #111);
+  padding: 80px 20px 40px;
+  text-align: center;
+  margin-top: 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #ffd700, transparent);
+}
+
+.footer-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  text-align: left;
+}
+
+.footer-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.footer-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.footer-section h3 {
+  color: #ffd700;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  font-family: 'Times New Roman', Times, serif;
+  position: relative;
+  display: inline-block;
+}
+
+.footer-section h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: #ffd700;
+  transition: width 0.3s ease;
+}
+
+.footer-section:hover h3::after {
+  width: 100%;
+}
+
+.contact-info {
+  margin-bottom: 25px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.contact-item:hover {
+  transform: translateX(5px);
+}
+
+.contact-icon {
+  min-width: 20px;
+  margin-right: 15px;
+  color: #ffd700;
+  font-size: 1.2rem;
+}
+
+.contact-text {
+  line-height: 1.6;
+}
+
+.map-container {
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 15px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.map-container:hover {
+  border-color: #ffd700;
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+}
+
+.map-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+             url('https://images.unsplash.com/photo-1543785734-4b6e56464261?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.map-placeholder::after {
+  content: 'Haritada Görüntüle';
+  position: absolute;
+  background: rgba(255, 215, 0, 0.9);
+  color: #0a0a0a;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.map-placeholder:hover::after {
+  opacity: 1;
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.social-link {
+  width: 45px;
+  height: 45px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: #ffd700;
+  color: #0a0a0a;
+  border-color: #ffd700;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+.opening-hours {
+  margin-top: 25px;
+}
+
+.hours-list {
+  list-style: none;
+}
+
+.hours-list li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hours-list li:last-child {
+  border-bottom: none;
+}
+
+.day {
+  font-weight: 500;
+}
+
+.time {
+  color: #ffd700;
+}
+
+.footer-bottom {
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+/* Medya Sorguları - Responsive Tasarım (Footer ile ilgili kısım) */
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .contact-item {
+    justify-content: center;
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+}
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        width: 90%;
+      }
+      
+      .main-logo {
+        font-size: 1.8rem;
+      }
+      
+      .menu-hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .menu-items {
+        grid-template-columns: 1fr;
+      }
+      
+      .menu-item {
+        flex-direction: column;
+      }
+      
+      .menu-item-price {
+        margin-top: 10px;
+      }
+      
+      .tab-btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+      }
+      
+      .category-image {
+        height: 200px;
+      }
+      
+      .campaign-title {
+        font-size: 1.4rem;
+      }
+      
+      .campaign-price {
+        font-size: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
   <nav>
     <a href="index.html" class="back-btn">←</a>
-    <div class="main-logo">PATIO.TIME</div>
-    <div class="subtitle">BAR EST1998</div>
+    <div class="main-logo">GÜPGÜP&ÇİFTLİK</div>
+    <div class="subtitle">EST1997</div>
   </nav>
 
   <!-- Hero Section -->
@@ -327,7 +867,9 @@
 
   <!-- Menu Tabs -->
   <div class="menu-tabs">
-    <button class="tab-btn active" data-tab="balik">Balık</button>
+    <button class="tab-btn active" data-tab="kampanyalar">Kampanyalar</button>
+    <button class="tab-btn" data-tab="bira">Biralar</button> <!-- YENİ: Bira sekmesi eklendi -->
+    <button class="tab-btn" data-tab="balik">Balık</button>
     <button class="tab-btn" data-tab="anayemek">Ana Yemek</button>
     <button class="tab-btn" data-tab="atistirmalik">Atıştırmalık</button>
     <button class="tab-btn" data-tab="meze">Mezeler</button>
@@ -345,10 +887,316 @@
     <button class="tab-btn" data-tab="kokteyl">Kokteyl</button>
   </div>
 
+  <div class="menu-container">
+    <!-- YENİ: Kampanyalar Sekmesi -->
+    <div class="menu-section active" id="kampanyalar">
+      <div class="menu-category">
+        <h2>Özel Kampanyalar</h2>
+        
+        <div class="category-image">
+          <img src="assets/kampanyalar.avif" alt="Özel Kampanyalar">
+        </div>
+        
+        <div class="menu-items">
+          <!-- Rakı Menüleri -->
+          <div class="campaign-item">
+            <h3 class="campaign-title">FİX MENÜ "35'LİK RAKI MENÜ"</h3>
+            <span class="campaign-price">2150 ₺</span>
+            <p class="campaign-description">35cl Rakı, 4 Soğuk Meze, 1 Porsiyon Seçmeli Ana Yemek (Tavuk Kavurma, Tavuk Şiş, Tavuk Şinitzel veya Izgara Köfte), Mevsim Salata, Meyve</p>
+            <p class="campaign-note">Yeni Rakı, Beylerbeyi Terra Gold, Beylerbeyi Mavi Kampanyaya dahildir. Altın Seri ve Efe Gold isteyen misafirlerimiz 35 cl'de 150 tl fark ile rakılarını değiştirebilir.</p>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">FİX MENÜ "50'LİK RAKI MENÜ"</h3>
+            <span class="campaign-price">2700 ₺</span>
+            <p class="campaign-description">50cl Rakı, 5 Soğuk Meze, 2 Porsiyon Seçmeli Ana Yemek (Tavuk Kavurma, Tavuk Şiş, Tavuk Şinitzel veya Izgara Köfte), Mevsim Salata, Meyve</p>
+            <p class="campaign-note">Yeni Rakı, Beylerbeyi Terra Gold, Beylerbeyi Mavi Kampanyaya dahildir. Altın Seri ve Efe Gold isteyen misafirlerimiz 50 cl'de 150 tl fark ile rakılarını değiştirebilir.</p>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">FİX MENÜ "70'LİK RAKI MENÜ"</h3>
+            <span class="campaign-price">3400 ₺</span>
+            <p class="campaign-description">70cl Rakı, 7 Soğuk Meze, 2 Porsiyon Seçmeli Ana Yemek (Tavuk Kavurma, Tavuk Şiş, Tavuk Şinitzel veya Izgara Köfte), Mevsim Salata, Meyve</p>
+            <p class="campaign-note">Yeni Rakı, Beylerbeyi Terra Gold, Beylerbeyi Mavi Kampanyaya dahildir. Beylerbeyi Göbek, Altın Seri ve Efe Gold isteyen misafirlerimiz 70 cl'de 300 tl fark ile rakılarını değiştirebilir.</p>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">FİX MENÜ "100'LÜK RAKI MENÜ"</h3>
+            <span class="campaign-price">4000 ₺</span>
+            <p class="campaign-description">100cl Rakı, 7 Soğuk Meze, 3 Porsiyon Seçmeli Ana Yemek (Tavuk Kavurma, Tavuk Şiş, Tavuk Şinitzel veya Izgara Köfte), Mevsim Salata, Meyve</p>
+            <p class="campaign-note">Yeni Rakı, Beylerbeyi Terra Gold, Beylerbeyi Mavi Kampanyaya dahildir. Beylerbeyi Göbek, Altın Seri ve Efe Gold isteyen misafirlerimiz 100 cl'de 300 tl fark ile rakılarını değiştirebilir.</p>
+          </div>
+          
+          <!-- Diğer Kampanyalar -->
+          <div class="campaign-item">
+            <h3 class="campaign-title">FİX MENÜ "70'LİK ŞARAP MENÜ"</h3>
+            <span class="campaign-price">900 ₺</span>
+            <p class="campaign-description">70cl Şarap, 2 Kişilik Pizza</p>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">HAPPY HOUR FIÇI BİRA</h3>
+            <span class="campaign-price">100 ₺</span>
+            <p class="campaign-description">HER GÜN 18:00'A KADAR GEÇERLİDİR.</p>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">KOVA MENÜ 4</h3>
+            <span class="campaign-price">770 ₺</span>
+            <p class="campaign-description">6 ADET EFES MALT</p>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">KOVA MENÜ 5</h3>
+            <span class="campaign-price">770 ₺</span>
+            <p class="campaign-description">6 ADET EFES ŞİŞE</p>
+          </div>
+          
+          <!-- Shot Kampanyaları -->
+          <div class="campaign-item">
+            <h3 class="campaign-title">5'Lİ JAGER SHOT</h3>
+            <span class="campaign-price">550 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">5'Lİ TEKİLA SHOT</h3>
+            <span class="campaign-price">550 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">5'Lİ VİSKİ SHOT</h3>
+            <span class="campaign-price">550 ₺</span>
+          </div>
+          
+          <!-- Tekila Shotlar -->
+          <div class="campaign-item">
+            <h3 class="campaign-title">TEKİLA SHOT "TEK"</h3>
+            <span class="campaign-price">150 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">TEKİLA SHOT "5'Lİ"</h3>
+            <span class="campaign-price">600 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">TEKİLA SHOT "10'LU"</h3>
+            <span class="campaign-price">1200 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">TEKİLA SHOT "15'Lİ"</h3>
+            <span class="campaign-price">1800 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">TEKİLA SHOT "20'Lİ"</h3>
+            <span class="campaign-price">2400 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">TEKİLA SHOT "25'Lİ"</h3>
+            <span class="campaign-price">3000 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">TEKİLA SHOT "30'LU"</h3>
+            <span class="campaign-price">3600 ₺</span>
+          </div>
+          
+          <!-- Jager Shotlar -->
+          <div class="campaign-item">
+            <h3 class="campaign-title">JAGER SHOT "TEK"</h3>
+            <span class="campaign-price">150 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">JAGER SHOT "5'Lİ"</h3>
+            <span class="campaign-price">600 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">JAGER SHOT "10'LU"</h3>
+            <span class="campaign-price">1200 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">JAGER SHOT "15'Lİ"</h3>
+            <span class="campaign-price">1800 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">JAGER SHOT "20'Lİ"</h3>
+            <span class="campaign-price">2400 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">JAGER SHOT "25'Lİ"</h3>
+            <span class="campaign-price">3000 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">JAGER SHOT "30'LU"</h3>
+            <span class="campaign-price">3600 ₺</span>
+          </div>
+          
+          <!-- Viski Shotlar -->
+          <div class="campaign-item">
+            <h3 class="campaign-title">VİSKİ SHOT "TEK"</h3>
+            <span class="campaign-price">150 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">VİSKİ SHOT "5'Lİ"</h3>
+            <span class="campaign-price">600 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">VİSKİ SHOT "10'LU"</h3>
+            <span class="campaign-price">1200 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">VİSKİ SHOT "15'Lİ"</h3>
+            <span class="campaign-price">1800 ₺</span>
+          </div>
+          
+          <div class="campaign-item">
+            <h3 class="campaign-title">VİSKİ SHOT "20'Lİ"</h3>
+            <span class="campaign-price">2400 ₺</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- YENİ: Bira Bölümü -->
+    <div class="menu-section" id="bira">
+      <div class="menu-category">
+        <h2>Biralar</h2>
+        
+        <div class="category-image">
+          <img src="assets/bira.jpg" alt="Biralar">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Efes Pilsen (500ml)</h3>
+            </div>
+            <div class="menu-item-price">120₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Efes Dark (500ml)</h3>
+            </div>
+            <div class="menu-item-price">130₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Efes Malt (500ml)</h3>
+            </div>
+            <div class="menu-item-price">130₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Efes Fıçı (400ml)</h3>
+            </div>
+            <div class="menu-item-price">100₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tuborg Gold (500ml)</h3>
+            </div>
+            <div class="menu-item-price">120₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Tuborg Special (500ml)</h3>
+            </div>
+            <div class="menu-item-price">130₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Corona (355ml)</h3>
+            </div>
+            <div class="menu-item-price">150₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Heineken (500ml)</h3>
+            </div>
+            <div class="menu-item-price">140₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Budweiser (500ml)</h3>
+            </div>
+            <div class="menu-item-price">140₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Miller (500ml)</h3>
+            </div>
+            <div class="menu-item-price">140₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Bomonti (500ml)</h3>
+            </div>
+            <div class="menu-item-price">120₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Gara Guzu (330ml)</h3>
+            </div>
+            <div class="menu-item-price">160₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Balık -->
+    <div class="menu-section" id="balik">
+      <div class="menu-category">
+        <h2>Balık</h2>
+        
+        <div class="category-image">
+          <img src="assets/çipura.jpg" alt="Balık">
+        </div>
+        
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Çipura</h3>
+            </div>
+            <div class="menu-item-price">550₺</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <h3 class="menu-item-title">Levrek Izgara</h3>
+            </div>
+            <div class="menu-item-price">550₺</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   <!-- Menu Container -->
   <div class="menu-container">
     <!-- Balık -->
-    <div class="menu-section active" id="balik">
+    <div class="menu-section" id="balik">
       <div class="menu-category">
         <h2>Balık</h2>
         
@@ -380,7 +1228,7 @@
         <h2>Ana Yemek</h2>
         
         <div class="category-image">
-          <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fG1haW4lMjBjb3Vyc2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1200&q=60" alt="Ana Yemek">
+          <img src="assets/anayemek.avif" alt="Ana Yemek">
         </div>
         
         <div class="menu-items">
@@ -478,7 +1326,7 @@
         <h2>Atıştırmalıklar</h2>
         
         <div class="category-image">
-          <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YXBwZXRpemVyc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=1200&q=60" alt="Atıştırmalıklar">
+          <img src="assets/atıştırmalıklar.avif" alt="Atıştırmalıklar">
         </div>
         
         <div class="menu-items">
@@ -576,7 +1424,7 @@
         <h2>Mezeler</h2>
         
         <div class="category-image">
-          <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YXBwZXRpemVyc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=1200&q=60" alt="Mezeler">
+          <img src="assets/mezeler.png" alt="Mezeler">
         </div>
         
         <div class="menu-items">
@@ -736,7 +1584,7 @@
         <h2>Salatalar</h2>
         
         <div class="category-image">
-          <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2FsYWR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1200&q=60" alt="Salatalar">
+          <img src="assets/salatalar.jpg" alt="Salatalar">
         </div>
         
         <div class="menu-items">
@@ -799,7 +1647,7 @@
         <h2>Yancılar</h2>
         
         <div class="category-image">
-          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHNuYWNrc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=1200&q=60" alt="Yancılar">
+          <img src="assets/yancılar.webp" alt="Yancılar">
         </div>
         
         <div class="menu-items">
@@ -896,7 +1744,7 @@
         <h2>Sıcak İçecekler</h2>
         
         <div class="category-image">
-          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y29mZmVlfGVufDB8fDB8fHww&auto=format&fit=crop&w=1200&q=60" alt="Sıcak İçecekler">
+          <img src="assets/sıcakiçecekeler.avif" alt="Sıcak İçecekler">
         </div>
         
         <div class="menu-items">
@@ -937,7 +1785,7 @@
         <h2>Soğuk İçecekler</h2>
         
         <div class="category-image">
-          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGNvbGQlMjBkcmlua3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1200&q=60" alt="Soğuk İçecekler">
+          <img src="assets/soğukiçecekeler.jpg" alt="Soğuk İçecekler">
         </div>
         
         <div class="menu-items">
@@ -1035,7 +1883,7 @@
         <h2>Viskiler</h2>
         
         <div class="category-image">
-          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvY2t0YWlsJTIwYmFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=1200&q=60" alt="Viskiler">
+          <img src="assets/viskiler.jpg" alt="Viskiler">
         </div>
         
         <div class="menu-items">
@@ -1244,7 +2092,7 @@
         <h2>Rakılar</h2>
         
         <div class="category-image">
-          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvY2t0YWlsJTIwYmFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=1200&q=60" alt="Rakılar">
+          <img src="assets/rakılar.jpg" alt="Rakılar">
         </div>
         
         <div class="menu-items">
@@ -1537,7 +2385,7 @@
         <h2>Cin</h2>
         
         <div class="category-image">
-          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvY2t0YWlsJTIwYmFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=1200&q=60" alt="Cin">
+          <img src="assets/cin.jpg" alt="Cin">
         </div>
         
         <div class="menu-items">
@@ -1655,7 +2503,7 @@
         <h2>Vodka</h2>
         
         <div class="category-image">
-          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvY2t0YWlsJTIwYmFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=1200&q=60" alt="Vodka">
+          <img src="assets/vodka.webp" alt="Vodka">
         </div>
         
         <div class="menu-items">
@@ -1773,7 +2621,7 @@
         <h2>Tekila</h2>
         
         <div class="category-image">
-          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvY2t0YWlsJTIwYmFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=1200&q=60" alt="Tekila">
+          <img src="assets/tekila.jpg" alt="Tekila">
         </div>
         
         <div class="menu-items">
@@ -1863,7 +2711,7 @@
         <h2>Şarap</h2>
         
         <div class="category-image">
-          <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHdpbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1200&q=60" alt="Şarap">
+          <img src="assets/şaraplar.avif" alt="Şarap">
         </div>
         
         <div class="menu-items">
@@ -1897,7 +2745,7 @@
         <h2>Likör & Rom</h2>
         
         <div class="category-image">
-          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvY2t0YWlsJTIwYmFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=1200&q=60" alt="Likör & Rom">
+          <img src="assets/likör ve rom.webp" alt="Likör & Rom">
         </div>
         
         <div class="menu-items">
@@ -1980,7 +2828,7 @@
         <h2>Kokteyl</h2>
         
         <div class="category-image">
-          <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y29ja3RhaWx8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1200&q=60" alt="Kokteyl">
+          <img src="assets/kokteyl.jpg" alt="Kokteyl">
         </div>
         
         <div class="menu-items">
@@ -2043,15 +2891,53 @@
   </div>
 
   <!-- Footer -->
-  <footer>
-    <p>📍 Şerefiye, Gaziantep Cd. No:6, 81020 Düzce</p>
-    <p>📞 +90 123 456 7890</p>
-    <div class="social">
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-facebook"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
+  <!--Footer -->
+  <footer id="contact">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>İletişim Bilgileri</h3>
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">Şerefiye, Gaziantep Cd. No:6, 81020 Düzce</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-text">(0380) 524 11 00</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-text">güpgüp@hotmail.com</div>
+          </div>
+        </div>
+        <div class="map-container">
+          <div class="map-placeholder" onclick="window.open('https://maps.app.goo.gl/G8z3mmLppdzH6fsE8')"></div>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Bizi Takip Edin</h3>
+        <p>Sosyal medya hesaplarımızdan bizi takip ederek güncel etkinliklerden haberdar olun.</p>
+        <div class="social-links">
+          <a href="https://www.instagram.com/gupgupduzce?igsh=MWx4aHVzY3d4a2x0ag==" class="social-link">📷</a>
+        </div>
+        
+        <div class="opening-hours">
+          <h3>Çalışma Saatleri</h3>
+          <ul class="hours-list">
+            <li><span class="day">Pazartesi - Perşembe</span> <span class="time">12:00 - 00:00</span></li>
+            <li><span class="day">Cuma - Cumartesi</span> <span class="time">12:00 - 00:00</span></li>
+            <li><span class="day">Pazar</span> <span class="time">12:00 - 00:00</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2023 GüpGüp&Çiftlik. Tüm hakları saklıdır.</p>
     </div>
   </footer>
+
 
   <script>
     // Tab functionality
@@ -2106,8 +2992,99 @@
     
     // Scroll ile tetikleme
     window.addEventListener('scroll', function() {
+      animateCategoryImages();  
+    });
+    // Tab functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const menuSections = document.querySelectorAll('.menu-section');
+      
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remove active class from all buttons and sections
+          tabBtns.forEach(b => b.classList.remove('active'));
+          menuSections.forEach(s => s.classList.remove('active'));
+          
+          // Add active class to clicked button
+          btn.classList.add('active');
+          
+          // Show corresponding section
+          const tabId = btn.getAttribute('data-tab');
+          document.getElementById(tabId).classList.add('active');
+          
+          // Trigger image animations for the active section
+          setTimeout(animateCategoryImages, 100);
+        });
+      });
+      
+      // Navbar'ı ortala
+      const nav = document.querySelector('nav');
+      if (nav) {
+        nav.style.marginLeft = 'auto';
+        nav.style.marginRight = 'auto';
+      }
+      
+      // Initial animation for images
+      setTimeout(animateCategoryImages, 500);
+    });
+    
+    // Kategori fotoğraflarını animasyonla göster
+    function animateCategoryImages() {
+      const categoryImages = document.querySelectorAll('.category-image');
+      
+      categoryImages.forEach((image, index) => {
+        // Sadece aktif sekmedeki görselleri animasyonla göster
+        if (image.closest('.menu-section').classList.contains('active')) {
+          setTimeout(() => {
+            image.classList.add('visible');
+          }, 300 + (index * 200));
+        } else {
+          image.classList.remove('visible');
+        }
+      });
+    }
+    
+    // Scroll ile tetikleme
+    window.addEventListener('scroll', function() {
       animateCategoryImages();
     });
+    // Footer animasyonu
+function animateFooter() {
+  const footerSections = document.querySelectorAll('.footer-section');
+  footerSections.forEach((section, index) => {
+    setTimeout(() => {
+      section.classList.add('visible');
+    }, 500 + (index * 300));
+  });
+}
+
+// Element viewport'ta mı kontrolü
+function isElementInViewport(el) {
+  if (!el) return false;
+  const rect = el.getBoundingClientRect();
+  return (
+    rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.bottom >= 0
+  );
+}
+
+// Sayfa kaydırma olayını dinle (isteğe bağlı)
+window.addEventListener('scroll', function() {
+  // Footer animasyonunu tetikle
+  const footer = document.querySelector('footer');
+  if (isElementInViewport(footer)) {
+    const footerSections = document.querySelectorAll('.footer-section');
+    if (!footerSections[0].classList.contains('visible')) {
+      animateFooter();
+    }
+  }
+});
+
+// Sayfa yüklendiğinde çalışacak fonksiyon
+document.addEventListener('DOMContentLoaded', function() {
+  // Footer animasyonu
+  animateFooter();
+});
   </script>
 </body>
 </html>

@@ -65,7 +65,7 @@
       font-family: 'Times New Roman', Times, serif;
     }
 
-    /* Hamburger (iki çizgi) */
+    /* Hamburger (iki çizgi) - SOL TARAFA TAŞINDI */
     .hamburger {
       width: 30px;
       height: 20px;
@@ -75,7 +75,7 @@
       cursor: pointer;
       position: absolute;
       top: 20px;
-      right: 20px;
+      left: 20px; /* right: 20px; yerine left: 20px; yapıldı */
     }
     .hamburger span {
       height: 2px;
@@ -217,6 +217,12 @@
       font-family: 'Times New Roman', Times, serif;
       letter-spacing: 2px;
     }
+
+    .hero h5
+    {
+     margin-top: 190px;
+     font-size: 100%;
+    }
     .hero button {
       padding: 12px 30px;
       background: transparent;
@@ -295,92 +301,324 @@
       font-family: 'Times New Roman', Times, serif;
     }
 
-    /* Kartlar */
-    .cards { 
-      display: flex; 
-      justify-content: center; 
-      gap: 30px; 
-      flex-wrap: wrap; 
-      margin-top: 30px; 
-    }
-    .card {
-      width: 250px; 
-      height: 250px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 10px;
-      display: flex; 
-      align-items: center; 
-      justify-content: center;
-      transition: 0.3s;
-      border: 1px solid rgba(255,255,255,0.1);
+    /* YENİ: Havalı Buton Stili */
+    .hero-button {
+      position: relative;
+      padding: 15px 35px;
+      background: transparent;
+      border: 2px solid #ffd700;
+      color: #ffd700;
+      cursor: pointer;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
       font-family: 'Times New Roman', Times, serif;
-      font-size: 1.2rem;
+      text-transform: uppercase;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+      z-index: 1;
+    }
+    
+    .hero-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffd700;
+      z-index: -1;
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+    
+    .hero-button:hover {
+      color: #0a0a0a;
+    }
+    
+    .hero-button:hover::before {
+      transform: translateX(0);
+    }
+    
+    .hero-button::after {
+      content: '→';
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      transition: all 0.3s ease;
+      opacity: 0.8;
+    }
+    
+    .hero-button:hover::after {
+      right: 15px;
+      color: #0a0a0a;
+    }
+    
+    /* Buton için parıltı efekti */
+    .hero-button:hover {
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+    }
+    
+    /* Buton için hafif yükselme efekti */
+    .hero-button {
+      transform: translateY(0);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .hero-button:hover {
+      transform: translateY(-3px);
+    }
+
+    /* Fotoğraf Galerisi Bölümü */
+    .gallery-section {
+      padding: 80px 20px;
+      background: #0a0a0a;
+    }
+    .gallery-section h2 {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 2.2rem;
+      margin-bottom: 40px;
+      letter-spacing: 2px;
+      color: #ffd700;
+      text-align: center;
+    }
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .gallery-item {
       position: relative;
       overflow: hidden;
+      border-radius: 10px;
+      height: 250px;
+      cursor: pointer;
     }
-    .card img {
+    .gallery-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
+      transition: transform 0.5s ease;
     }
-    .card:hover { 
-      transform: translateY(-10px); 
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-      border-color: #ffd700;
+    .gallery-item:hover img {
+      transform: scale(1.1);
     }
-
-    /* Rezervasyon Formu */
-    form {
-      display: flex;
-      flex-direction: column;
-      max-width: 400px;
-      margin: 0 auto;
-      gap: 15px;
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 10px;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
     }
-    form input {
-      padding: 12px;
-      border: none;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-    form button {
-      padding: 12px;
-      border: none;
-      border-radius: 4px;
-      background: #ffd700;
-      color: #000;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    form button:hover {
-      background: #ffc400;
+    .gallery-item:hover .gallery-caption {
+      transform: translateY(0);
     }
 
-    /* Footer */
+    /* YENİ: Geliştirilmiş Footer */
     footer { 
-      background: #111; 
-      padding: 50px 20px; 
-      text-align: center; 
+      background: linear-gradient(to bottom, #0a0a0a, #111);
+      padding: 80px 20px 40px;
+      text-align: center;
+      margin-top: 100px;
+      position: relative;
+      overflow: hidden;
     }
-    footer p {
-      margin: 10px 0;
+    
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #ffd700, transparent);
     }
-    .social { 
+    
+    .footer-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      text-align: left;
+    }
+    
+    .footer-section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .footer-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .footer-section h3 {
+      color: #ffd700;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      font-family: 'Times New Roman', Times, serif;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: #ffd700;
+      transition: width 0.3s ease;
+    }
+    
+    .footer-section:hover h3::after {
+      width: 100%;
+    }
+    
+    .contact-info {
+      margin-bottom: 25px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+    
+    .contact-item:hover {
+      transform: translateX(5px);
+    }
+    
+    .contact-icon {
+      min-width: 20px;
+      margin-right: 15px;
+      color: #ffd700;
+      font-size: 1.2rem;
+    }
+    
+    .contact-text {
+      line-height: 1.6;
+    }
+    
+    .map-container {
+      height: 200px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 15px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .map-container:hover {
+      border-color: #ffd700;
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+    }
+    
+    .map-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                 url('https://images.unsplash.com/photo-1543785734-4b6e56464261?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .map-placeholder::after {
+      content: 'Haritada Görüntüle';
+      position: absolute;
+      background: rgba(255, 215, 0, 0.9);
+      color: #0a0a0a;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+    
+    .map-placeholder:hover::after {
+      opacity: 1;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
       margin-top: 20px;
     }
-    .social a { 
-      margin: 0 15px; 
-      color: #686565;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .social a:hover {
+    
+    .social-link {
+      width: 45px;
+      height: 45px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: #fff;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+    
+    .social-link:hover {
+      background: #ffd700;
+      color: #0a0a0a;
+      border-color: #ffd700;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    }
+    
+    .opening-hours {
+      margin-top: 25px;
+    }
+    
+    .hours-list {
+      list-style: none;
+    }
+    
+    .hours-list li {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .hours-list li:last-child {
+      border-bottom: none;
+    }
+    
+    .day {
+      font-weight: 500;
+    }
+    
+    .time {
+      color: #ffd700;
+    }
+    
+    .footer-bottom {
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+    
+    .footer-bottom p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
     }
 
     /* Medya Sorguları - Responsive Tasarım */
@@ -411,8 +649,7 @@
         width: 250px;
       }
       
-      .card {
-        width: 200px;
+      .gallery-item {
         height: 200px;
       }
       
@@ -422,6 +659,24 @@
       
       .about-text {
         text-align: center;
+      }
+      
+      .hero-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .contact-item {
+        justify-content: center;
+      }
+      
+      .social-links {
+        justify-content: center;
       }
     }
   </style>
@@ -446,41 +701,41 @@
     </nav>
 
     <div class="hero-content">
-  <h1>Rahatlatıcı Bir Atmosfer</h1>
-  <button onclick="window.location.href='menu.html'">Menümüze Göz At</button>
-</div>
-
-</header>
+      <h1>Hoş geldiniz</h1>
+      <button onclick="window.location.href='menu.html'">Menümüze Göz At</button>
+      <h5>Açılış Saatleri: 12:00 - 00:00</h5>
+    </div>
+  </header>
 
   <!-- Sağ Menü -->
   <div class="side-menu" id="sideMenu">
     <span class="close-btn" onclick="toggleMenu()">&times;</span>
     <ul>
       <li><a href="#hero" onclick="toggleMenu()">Ev</a></li>
-      <li><a href="about.html" onclick="toggleMenu()">Hakkında</a></li>
+      <li><a href="about.html" onclick="toggleMenu()">Hakkımızda</a></li>
       <li><a href="menu.html">Menümüz</a></li>
-      <li><a href="#reserve" onclick="toggleMenu()">Rezervasyon</a></li>
-      <li><a href="#contact" onclick="toggleMenu()">Temas Etmek</a></li>
+      <li><a href="#gallery" onclick="toggleMenu()">Galeri</a></li>
+      <li><a href="#contact" onclick="toggleMenu()">İletişim</a></li>
     </ul>
     
     <!-- Açılış Saatleri Bölümü -->
     <div class="hours-section">
       <h3>AÇILIŞ SAATLERİ</h3>
       <ul class="hours-list">
-        <li><span class="day">Pazartesi - Cuma</span> <span>09:00 - 22:00</span></li>
-        <li><span class="day">Cumartesi</span> <span>11:00 - 00:00</span></li>
-        <li><span class="day">Pazar</span> <span>11:00 - 23:00</span></li>
+        <li><span class="day">Pazartesi - Cuma</span> <span>12:00 - 00:00</span></li>
+        <li><span class="day">Cumartesi</span> <span>12:00 - 00:00</span></li>
+        <li><span class="day">Pazar</span> <span>12:00 - 00:00</span></li>
       </ul>
-      <div class="happy-hour">* Mutlu saatler 17:00 - 21:00</div>
+      <div class="happy-hour">* Etkinlik saatleri 18:00 - 23:00</div>
     </div>
     
     <!-- Konum Bölümü -->
     <div class="location-section">
       <h3>KONUMUMUZ</h3>
-      <div class="address">Silk St, Barbican, Londra EC2Y 8DS, Birleşik Krallık</div>
+      <div class="address">Şerefiye, Gaziantep Cd. No:6, 81020 Düzce</div>
       <div class="contact-info">
-        +39-055-123456
-        <a href="mailto:rezervasyon@pariotime.com" class="email">rezervasyon@pariotime.com</a>
+        (0380) 524 11 00
+        <a href="mailto:info@patiotime.com" class="email">güpgüp@hotmail.com</a>
       </div>
     </div>
   </div>
@@ -490,55 +745,93 @@
     <h2>Hakkımızda</h2>
     <div class="about-content">
       <div class="about-text">
-        <p>1998 yılında kurulan Patio.Time, misafirlerine sıcak ve rahatlatıcı bir atmosfer sunmayı amaçlayan premium bir bardır. Kurulduğumuz günden bu yana kaliteli içecekler ve özenle hazırlanmış menümüzle misafirlerimizin keyifli vakit geçirmesini sağlıyoruz.</p>
-        <p>Mekanımız, şehrin kalbinde butik bir tasarıma sahip olup, samimi ortamı ve özenli hizmet anlayışıyla dikkat çeker. Alanında uzman bartender'larımız, her zevke hitap eden özel kokteyller hazırlamaktadır.</p>
-        <p>Patio.Time olarak misyonumuz, misafirlerimize unutulmaz anılar biriktirebilecekleri bir deneyim sunmak ve onların günlük hayatın stresinden uzaklaşabilecekleri bir sığınak olmaktır.</p>
-        <a href="about.html" class="hero-button">Daha Fazla Bilgi</a>
+        <p>1997 yılında Düzce'nin kalbinde kurulan GüpGüp&Çiftlik, tek çatı altında iki farklı deneyimi bir araya getiren eşsiz bir mekandır. Zemin katımızda yer alan GüpGüp Pub, canlı müzik, enerjik atmosferi ve geniş içecek çeşidiyle dost sohbetlerinin ve eğlencenin kalbi atar.</p>
+        <p>Üst katımızda ise sizi Çiftlik Restoran'ın sıcak ve samimi ortamı karşılar. Rakı kültürü üzerine kurulu mutfağımız, geleneksel meze lezzetlerini modern yorumlarla buluşturur. Özenle seçilmiş malzemeler ve usta şeflerin elinden çıkan nefis mezelerimiz, en kaliteli rakı çeşitlerimizle buluşarak damak zevkinize hitap eder.</p>
+        <p>İki farklı deneyimi, aynı misafirperverlik anlayışıyla buluşturuyoruz. Temel prensibimiz, misafirlerimizin kendilerini evlerinde hissedeceği sıcak bir ortam yaratmak ve onlara en kaliteli hizmeti sunmaktır. 1997'den beri sürdürdüğümüz bu tutku, bizi sadece bir mekan olmaktan çıkarıp şehrin bir parçası haline getirdi.</p>
+        <button class="hero-button" onclick="window.location.href='about.html'">Daha Fazla Bilgi</button>
       </div>
       <div class="about-image">
-        <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGJhcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Bar iç mekan" onload="fadeIn(this)">
-        <div class="about-image-placeholder">Mekan Görseli</div>
+        <img src="assets/rakılar.jpg" alt="#" onload="fadeIn(this)">
+        <div class="about-image-placeholder"></div>
       </div>
     </div>
   </section>
 
-  <!-- Menü -->
-  <section id="menu" class="section">
-    <h2>Öne Çıkan Lezzetler</h2>
-    <div class="cards">
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y29ja3RhaWx8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Kokteyl" onload="fadeIn(this)">
-        <div>Özel Kokteyller</div>
+  <!-- Fotoğraf Galerisi Bölümü -->
+  <section id="gallery" class="gallery-section">
+    <h2>Galeri</h2>
+    <div class="gallery-container">
+      <div class="gallery-item">
+        <img src="assets/bira.jpg" alt="Bar iç mekan">
+        <div class="gallery-caption">Mekanımızdan bir görünüm</div>
       </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGFwcGV0aXplcnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Mezeler" onload="fadeIn(this)">
-        <div>Lezzetli Mezeler</div>
+      <div class="gallery-item">
+        <img src="assets/bira.jpg" alt="Kokteyl">
+        <div class="gallery-caption">Özel kokteyllerimiz</div>
       </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGNvY2t0YWlsJTIwYmFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Atmosfer" onload="fadeIn(this)">
-        <div>Eşsiz Atmosfer</div>
+      <div class="gallery-item">
+        <img src="assets/bira.jpg" alt="Atmosfer">
+        <div class="gallery-caption">Akşam atmosferi</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/bira.jpg" alt="Mezeler">
+        <div class="gallery-caption">Lezzetli mezeler</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/bira.jpg" alt="Dış mekan">
+        <div class="gallery-caption">Oturma alanımız</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/bira.jpg" alt="Özel etkinlik">
+        <div class="gallery-caption">Özel etkinlikler</div>
       </div>
     </div>
   </section>
 
-  <!-- Rezervasyon -->
-  <section id="reserve" class="section">
-    <h2>Rezervasyon Yap</h2>
-    <form id="reservationForm">
-      <input type="text" placeholder="Adınız" id="nameInput" required>
-      <input type="date" id="dateInput" required>
-      <button type="submit">Gönder</button>
-    </form>
-  </section>
-
-  <!-- Footer -->
+  <!--Footer -->
   <footer id="contact">
-    <p>📍 Şerefiye, Gaziantep Cd. No:6, 81020 Düzce</p>
-    <p>📞 +90 123 456 7890</p>
-    <div class="social">
-      <a href="#">Instagram</a>
-      <a href="#">Facebook</a>
-      <a href="#">Twitter</a>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>İletişim Bilgileri</h3>
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">Şerefiye, Gaziantep Cd. No:6, 81020 Düzce</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-text">(0380) 524 11 00</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-text">güpgüp@hotmail.com</div>
+          </div>
+        </div>
+        <div class="map-container">
+          <div class="map-placeholder" onclick="window.open('https://maps.app.goo.gl/G8z3mmLppdzH6fsE8')"></div>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Bizi Takip Edin</h3>
+        <p>Sosyal medya hesaplarımızdan bizi takip ederek güncel etkinliklerden haberdar olun.</p>
+        <div class="social-links">
+          <a href="https://www.instagram.com/gupgupduzce?igsh=MWx4aHVzY3d4a2x0ag==" class="social-link">📷</a>
+        </div>
+        
+        <div class="opening-hours">
+          <h3>Çalışma Saatleri</h3>
+          <ul class="hours-list">
+            <li><span class="day">Pazartesi - Perşembe</span> <span class="time">12:00 - 00:00</span></li>
+            <li><span class="day">Cuma - Cumartesi</span> <span class="time">12:00 - 00:00</span></li>
+            <li><span class="day">Pazar</span> <span class="time">12:00 - 00:00</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2023 GüpGüp&Çiftlik. Tüm hakları saklıdır.</p>
     </div>
   </footer>
 
@@ -563,11 +856,8 @@
         }
       }
       
-      // Rezervasyon formu için event listener ekle
-      const reservationForm = document.getElementById('reservationForm');
-      if (reservationForm) {
-        reservationForm.addEventListener('submit', handleReservation);
-      }
+      // Footer animasyonu
+      animateFooter();
     });
 
     // Bölüme yumuşak kaydırma
@@ -586,41 +876,6 @@
       }
     }
 
-    // Rezervasyon formu işleme
-    function handleReservation(e) {
-      e.preventDefault();
-      
-      const nameInput = document.getElementById('nameInput');
-      const dateInput = document.getElementById('dateInput');
-      
-      if (nameInput && dateInput) {
-        const name = nameInput.value.trim();
-        const date = dateInput.value;
-        
-        if (name === '' || date === '') {
-          alert('Lütfen tüm alanları doldurun.');
-          return;
-        }
-        
-        // Burada rezervasyon verilerini sunucuya gönderebilirsiniz
-        alert(`Rezervasyonunuz alındı!\nİsim: ${name}\nTarih: ${formatDate(date)}`);
-        
-        // Formu temizle
-        nameInput.value = '';
-        dateInput.value = '';
-      }
-    }
-
-    // Tarih formatlama
-    function formatDate(dateString) {
-      const date = new Date(dateString);
-      return date.toLocaleDateString('tr-TR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      });
-    }
-
     // Görsel yavaşça belirme efekti
     function fadeIn(element) {
       element.style.opacity = 0;
@@ -629,6 +884,16 @@
       setTimeout(function() {
         element.style.opacity = 1;
       }, 300);
+    }
+    
+    // Footer animasyonu
+    function animateFooter() {
+      const footerSections = document.querySelectorAll('.footer-section');
+      footerSections.forEach((section, index) => {
+        setTimeout(() => {
+          section.classList.add('visible');
+        }, 500 + (index * 300));
+      });
     }
 
     // Sayfa kaydırma olayını dinle (isteğe bağlı)
@@ -642,7 +907,26 @@
           nav.style.background = 'rgba(0,0,0,0.7)';
         }
       }
+      
+      // Footer animasyonunu tetikle
+      const footer = document.querySelector('footer');
+      if (isElementInViewport(footer)) {
+        const footerSections = document.querySelectorAll('.footer-section');
+        if (!footerSections[0].classList.contains('visible')) {
+          animateFooter();
+        }
+      }
     });
+    
+    // Element viewport'ta mı kontrolü
+    function isElementInViewport(el) {
+      if (!el) return false;
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.bottom >= 0
+      );
+    }
   </script>
 </body>
 </html>

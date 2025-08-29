@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PatioTime - Hakkında</title>
+  <title>GÜPGÜP&ÇİFTLİK Hakkımızda</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #fff; background: #0a0a0a; }
@@ -66,6 +66,7 @@
       text-align: center;
       position: relative;
       overflow: hidden;
+      padding-top: 100px;
     }
     
     .about-hero::before {
@@ -95,6 +96,103 @@
       line-height: 1.6;
     }
 
+    /* Üçlü Fotoğraf Bölümü - YENİ TASARIM */
+    .photo-philosophy-section {
+      padding: 80px 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+      width: 100%;
+    }
+    
+    .section-subtitle {
+      font-size: 1rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #ffd700;
+      margin-bottom: 15px;
+      font-family: 'Times New Roman', Times, serif;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #fff;
+      font-family: 'Times New Roman', Times, serif;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: #ffd700;
+    }
+    
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .photo-card {
+      position: relative;
+      height: 500px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease;
+    }
+    
+    .photo-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .photo-card:hover img {
+      transform: scale(1.05);
+    }
+    
+    .photo-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.9));
+      padding: 30px 20px 20px;
+      color: #fff;
+    }
+    
+    .photo-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #ffd700;
+      font-family: 'Times New Roman', Times, serif;
+    }
+    
+    .photo-description {
+      font-size: 1rem;
+      line-height: 1.6;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
     /* About Content */
     .about-section {
       padding: 80px 20px;
@@ -117,6 +215,11 @@
       transition: 0.3s;
       opacity: 0;
       transform: translateY(20px);
+    }
+    
+    .about-card.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     
     .about-card:hover {
@@ -145,15 +248,14 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out, transform 0.5s ease;
+      transition: transform 0.5s ease;
     }
     
     .about-image img:hover {
       transform: scale(1.05);
     }
 
-    /* Timeline */
+    /* YENİ: Geliştirilmiş Timeline */
     .timeline {
       position: relative;
       max-width: 1000px;
@@ -161,8 +263,19 @@
       padding: 20px;
     }
     
-    .timeline::after {
+    .timeline::before {
       content: '';
+      position: absolute;
+      width: 2px;
+      background: rgba(255, 215, 0, 0.3);
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -1px;
+      z-index: 1;
+    }
+    
+    .timeline-line {
       position: absolute;
       width: 2px;
       background: #ffd700;
@@ -170,6 +283,14 @@
       bottom: 0;
       left: 50%;
       margin-left: -1px;
+      z-index: 2;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 2s ease-in-out;
+    }
+    
+    .timeline-line.animate {
+      transform: scaleY(1);
     }
     
     .timeline-item {
@@ -177,7 +298,14 @@
       position: relative;
       width: 50%;
       opacity: 0;
-      transform: translateX(-20px);
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      z-index: 3;
+    }
+    
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     
     .timeline-item:nth-child(even) {
@@ -189,12 +317,18 @@
       position: absolute;
       width: 20px;
       height: 20px;
-      background: #ffd700;
-      border: 4px solid #0a0a0a;
+      background: #0a0a0a;
+      border: 4px solid #ffd700;
       border-radius: 50%;
       top: 20px;
       right: -10px;
-      z-index: 1;
+      z-index: 4;
+      transform: scale(0);
+      transition: transform 0.5s ease-out;
+    }
+    
+    .timeline-item.visible::after {
+      transform: scale(1);
     }
     
     .timeline-item:nth-child(even)::after {
@@ -202,57 +336,270 @@
     }
     
     .timeline-content {
-      padding: 20px;
+      padding: 25px;
       background: rgba(255,255,255,0.05);
       border-radius: 8px;
       border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.4s ease;
+      transform: translateX(-20px);
+      opacity: 0;
+    }
+    
+    .timeline-item.visible .timeline-content {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .timeline-item:nth-child(even) .timeline-content {
+      transform: translateX(20px);
+    }
+    
+    .timeline-item:nth-child(even).visible .timeline-content {
+      transform: translateX(0);
+    }
+    
+    .timeline-content:hover {
+      border-color: #ffd700;
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+      transform: translateY(-5px);
     }
     
     .timeline-content h3 {
       color: #ffd700;
       margin-bottom: 10px;
+      font-size: 1.4rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .timeline-content h3::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background: #ffd700;
+      transition: width 0.3s ease;
+    }
+    
+    .timeline-content:hover h3::after {
+      width: 100%;
+    }
+    
+    .timeline-content p {
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.8);
     }
 
-    /* Footer */
+    /* YENİ: Geliştirilmiş Footer */
     footer { 
-      background: #111; 
-      padding: 50px 20px; 
-      text-align: center; 
-      margin-top: 80px;
+      background: linear-gradient(to bottom, #0a0a0a, #111);
+      padding: 80px 20px 40px;
+      text-align: center;
+      margin-top: 100px;
+      position: relative;
+      overflow: hidden;
     }
     
-    footer p {
-      margin: 10px 0;
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #ffd700, transparent);
     }
     
-    .social { 
+    .footer-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      text-align: left;
+    }
+    
+    .footer-section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .footer-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .footer-section h3 {
+      color: #ffd700;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      font-family: 'Times New Roman', Times, serif;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: #ffd700;
+      transition: width 0.3s ease;
+    }
+    
+    .footer-section:hover h3::after {
+      width: 100%;
+    }
+    
+    .contact-info {
+      margin-bottom: 25px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+    
+    .contact-item:hover {
+      transform: translateX(5px);
+    }
+    
+    .contact-icon {
+      min-width: 20px;
+      margin-right: 15px;
+      color: #ffd700;
+      font-size: 1.2rem;
+    }
+    
+    .contact-text {
+      line-height: 1.6;
+    }
+    
+    .map-container {
+      height: 200px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 15px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .map-container:hover {
+      border-color: #ffd700;
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+    }
+    
+    .map-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                 url('https://images.unsplash.com/photo-1543785734-4b6e56464261?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .map-placeholder::after {
+      content: 'Haritada Görüntüle';
+      position: absolute;
+      background: rgba(255, 215, 0, 0.9);
+      color: #0a0a0a;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+    
+    .map-placeholder:hover::after {
+      opacity: 1;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
       margin-top: 20px;
     }
     
-    .social a { 
-      margin: 0 15px; 
-      color: #ffd700;
-      font-weight: bold;
-      transition: 0.3s;
+    .social-link {
+      width: 45px;
+      height: 45px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
     }
     
-    .social a:hover {
-      color: #fff;
+    .social-link:hover {
+      background: #ffd700;
+      color: #0a0a0a;
+      border-color: #ffd700;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
     }
-
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    
+    .opening-hours {
+      margin-top: 25px;
+    }
+    
+    .hours-list {
+      list-style: none;
+    }
+    
+    .hours-list li {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .hours-list li:last-child {
+      border-bottom: none;
+    }
+    
+    .day {
+      font-weight: 500;
+    }
+    
+    .time {
+      color: #ffd700;
+    }
+    
+    .footer-bottom {
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+    
+    .footer-bottom p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
     }
 
     /* Responsive */
+    @media (max-width: 1100px) {
+      .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
     @media (max-width: 768px) {
       nav {
         width: 90%;
@@ -266,7 +613,20 @@
         font-size: 2.5rem;
       }
       
-      .timeline::after {
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .photo-card {
+        height: 400px;
+      }
+      
+      .timeline::before,
+      .timeline-line {
         left: 31px;
       }
       
@@ -287,20 +647,76 @@
       .timeline-item:nth-child(even)::after {
         left: 21px;
       }
+      
+      .timeline-content {
+        transform: translateX(0) !important;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .contact-item {
+        justify-content: center;
+      }
+      
+      .social-links {
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
   <nav>
     <a href="index.html" class="back-btn">←</a>
-    <div class="main-logo">PATIO.TIME</div>
-    <div class="subtitle">BAR EST1998</div>
+    <div class="main-logo">GÜPGÜP&ÇİFTLİK</div>
+    <div class="subtitle">BAR EST1997</div>
   </nav>
 
   <section class="about-hero">
     <div>
       <h1>Hakkımızda</h1>
-      <p>1998'den beri misafirlerimize en kaliteli deneyimi sunmaktan gurur duyuyoruz</p>
+      <p>1997'den beri misafirlerimize en kaliteli deneyimi sunmaktan gurur duyuyoruz</p>
+    </div>
+  </section>
+
+  <!-- YENİ ÜÇLÜ FOTOĞRAF BÖLÜMÜ -->
+  <section class="photo-philosophy-section">
+    <div class="section-header">
+      <div class="section-subtitle">İŞLETMEMİZİN FELSEFESİ</div>
+      <h2 class="section-title">Felsefemiz</h2>
+    </div>
+    
+    <div class="photo-grid">
+      <!-- Fotoğraf 1 -->
+      <div class="photo-card">
+        <img src="assets/bira.jpg" alt="KATMANLI DENEYİM FELSEFESİ">
+        <div class="photo-overlay">
+          <h3 class="photo-title">KATMANLI DENEYİM FELSEFESİ</h3>
+          <p class="photo-description">İki kat, iki ayrı dünya, tek bir mükemmel gece. Alt katta enerji ve heyecan, üst katta derin sohbetler ve rakı kültürü. Müşterilerimize aynı çatı altında iki farklı deneyim sunarak hayatın ritmine ayak uyduruyoruz. İster coşmak ister dinginleşmek isteyin, bizde yeriniz hazır.</p>
+        </div>
+      </div>
+      
+      <!-- Fotoğraf 2 -->
+      <div class="photo-card">
+        <img src="assets/bira.jpg" alt="KALİTE VE SÜREKLİLİK">
+        <div class="photo-overlay">
+          <h3 class="photo-title">KALİTE VE SÜREKLİLİK</h3>
+          <p class="photo-description">Kuruluşumuzdan bu yana değişmeyen kalite standartlarımız ve istikrarlı hizmet anlayışımızla sektördeki konumumuzu koruyoruz. Sürekli gelişim ilkesiyle yenilikleri takip ederken, özümüzde bulunan misafirperverlik ve kalite anlayışından ödün vermiyoruz. Nesiller boyu süren güven ilişkisiyle, müşteri memnuniyetini her zaman en öncelikli değerimiz olarak kabul ediyoruz.
+
+</p>
+        </div>
+      </div>
+      
+      <!-- Fotoğraf 3 -->
+      <div class="photo-card">
+        <img src="assets/bira.jpg" alt="ATMOSFER">
+        <div class="photo-overlay">
+          <h3 class="photo-title">ATMOSFER</h3>
+          <p class="photo-description">GüpGüp&Çiftlik'te tek mekanda iki farklı dünya yaratıyoruz. Aşağı katta canlı pub enerjisi, yukarı katta samimi rakı keyfi. Geleneksel detayları modern yorumla buluşturarak her iki kata da kendine özgü bir karakter ve atmosfer kazandırdık. Misafirlerimize aynı çatı altında iki farklı deneyim sunarak unutulmaz anılar biriktirmelerini sağlıyoruz.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -308,4 +724,194 @@
     <div class="about-grid">
       <div class="about-card">
         <div class="about-image">
-          <img src="https://images.unsplash.com/photo-157211646
+          <img src="assets/bira.jpg" alt="#">
+        </div>
+        <h3>Bizim Hikayemiz</h3>
+        <p>1997'de Düzce'de kurulan GüpGüp&Çiftlik, aynı çatı altında iki farklı deneyimi birleştiren öncü bir mekan olarak hizmet vermeye başladı. Zaman içinde şehrin en sevilen buluşma noktası haline gelerek nesiller boyu süren bir dostluk mekanına dönüştü.</p>
+      </div>
+      
+      <div class="about-card">
+        <div class="about-image">
+          <img src="assets/bira.jpg" alt="#">
+        </div>
+        <h3>Kalite Anlayışımız</h3>
+        <p>Geleneksel lezzetleri modern sunumla buluşturuyor, en taze malzemelerle özenle hazırlanmış mezeler ve premium içki seçkisi sunuyoruz. Sürekli denetim ve titiz çalışmayla her ziyarette aynı yüksek standardı garantiliyoruz.</p>
+      </div>
+      
+      <div class="about-card">
+        <div class="about-image">
+          <img src="assets/bira.jpg" alt="#">
+        </div>
+        <h3>Misyonumuz</h3>
+        <p>Misafirlerimize çatımız altında, özgün ve unutulmaz deneyim sunarak kaliteli vakit geçirebilecekleri bir atmosfer yaratmak. Geleneksek lezzetlerimizi modern yorumlarla buluşturarak hem göze hem damağa hitap eden bir menü ile sıcak ve samimi bir hizmet anlayışını sürdürmek. Şehrin en sevilen, en canlı ve en renkli buluşma noktası olmayı sürdürmek.
+
+</p>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-line" id="timelineLine"></div>
+      
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <h3>1997</h3>
+          <p>GüpGüp&Çiftlik, Düzce'de mütevazi bir başlangıçla kuruldu. Samimiyet ve misafirperverlik odaklı hizmet anlayışımızın temellerini attık.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <h3>2005</h3>
+          <p>İki katlı yapımızla iki farklı deneyimi aynı çatı altında sunan özgün konseptimizi oluşturduk. Marka kimliğimizi ve hizmet felsefemizi netleştirdik.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <h3>2012</h3>
+          <p>İçki kültürü ve gastronomi alanında uzmanlaşarak sektördeki yerimizi sağlamlaştırdık. Süreklilik arz eden kalite standartlarımızı belirledik.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <h3>2020</h3>
+          <p>Pandemi döneminde hijyen standartlarımızı en üst seviyeye çıkararak misafirlerimize güvenli bir ortam sunduk. YA DA Küresel zorluklar karşısında operasyonel esneklik göstererek hizmet kalitemizi koruduk. Zorlu koşullarda dahi müşteri memnuniyetini önceliklendirdik.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <h3>2023</h3>
+          <p>Çeyrek asrı devirmenin haklı gururuyla, geleneksel değerleri modern yaklaşımlarla harmanlayan kurumsal kimliğimizi pekiştirdik.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+   <!--Footer -->
+  <footer id="contact">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>İletişim Bilgileri</h3>
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">Şerefiye, Gaziantep Cd. No:6, 81020 Düzce</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-text">(0380) 524 11 00</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-text">güpgüp@hotmail.com</div>
+          </div>
+        </div>
+        <div class="map-container">
+          <div class="map-placeholder" onclick="window.open('https://maps.app.goo.gl/G8z3mmLppdzH6fsE8')"></div>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Bizi Takip Edin</h3>
+        <p>Sosyal medya hesaplarımızdan bizi takip ederek güncel etkinliklerden haberdar olun.</p>
+        <div class="social-links">
+          <a href="https://www.instagram.com/gupgupduzce?igsh=MWx4aHVzY3d4a2x0ag==" class="social-link">📷</a>
+        </div>
+        
+        <div class="opening-hours">
+          <h3>Çalışma Saatleri</h3>
+          <ul class="hours-list">
+            <li><span class="day">Pazartesi - Perşembe</span> <span class="time">12:00 - 00:00</span></li>
+            <li><span class="day">Cuma - Cumartesi</span> <span class="time">12:00 - 00:00</span></li>
+            <li><span class="day">Pazar</span> <span class="time">12:00 - 00:00</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2023 GüpGüp&Çiftlik. Tüm hakları saklıdır.</p>
+    </div>
+  </footer>
+
+    
+    <div class="footer-bottom">
+      <p>© 2023 Patio.Time Bar. Tüm hakları saklıdır.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Sayfa yüklendiğinde animasyonları tetikle
+    document.addEventListener('DOMContentLoaded', function() {
+      // Kart animasyonları
+      const cards = document.querySelectorAll('.about-card');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('visible');
+        }, 200 * index);
+      });
+      
+      // Timeline animasyonlarını başlat
+      animateTimeline();
+      
+      // Footer animasyonu
+      animateFooter();
+    });
+    
+    // Yeni timeline animasyonu
+    function animateTimeline() {
+      const timelineLine = document.getElementById('timelineLine');
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      
+      // Çizgiyi yavaşça çek
+      setTimeout(() => {
+        timelineLine.classList.add('animate');
+      }, 500);
+      
+      // Timeline öğelerini sırayla göster
+      timelineItems.forEach((item, index) => {
+        setTimeout(() => {
+          item.classList.add('visible');
+        }, 1000 + (index * 400)); // Her öğe arasında 400ms gecikme
+      });
+    }
+    
+    // Footer animasyonu
+    function animateFooter() {
+      const footerSections = document.querySelectorAll('.footer-section');
+      footerSections.forEach((section, index) => {
+        setTimeout(() => {
+          section.classList.add('visible');
+        }, 500 + (index * 300));
+      });
+    }
+    
+    // Scroll ile tetikleme (opsiyonel)
+    window.addEventListener('scroll', function() {
+      const timelineSection = document.querySelector('.timeline');
+      if (isElementInViewport(timelineSection)) {
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        if (!timelineItems[0].classList.contains('visible')) {
+          animateTimeline();
+        }
+      }
+      
+      const footer = document.querySelector('footer');
+      if (isElementInViewport(footer)) {
+        const footerSections = document.querySelectorAll('.footer-section');
+        if (!footerSections[0].classList.contains('visible')) {
+          animateFooter();
+        }
+      }
+    });
+    
+    // Element viewport'ta mı kontrolü
+    function isElementInViewport(el) {
+      if (!el) return false;
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.bottom >= 0
+      );
+    }
+  </script>
+</body>
+</html>
