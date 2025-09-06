@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PatioTime - Ana Sayfa</title>
+  <title>Ana Sayfa</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: sans-serif; color: #fff; background: #0a0a0a; }
@@ -85,6 +85,46 @@
     }
     .hamburger:hover span {
       background: #ffd700;
+    }
+
+    /* YENİ: Sol Logo */
+    .left-logo {
+      position: absolute;
+      top: 20px;
+      left: 70px; /* Hamburger menüden sonra */
+      height: 50px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+    }
+    .left-logo img {
+      height: 100%;
+      width: auto;
+      filter: brightness(0) invert(1); /* Logoyu beyaz yapar */
+      transition: all 0.3s ease;
+    }
+    .left-logo img:hover {
+      filter: brightness(0) invert(0.8) sepia(1) saturate(5) hue-rotate(5deg); /* Altın rengi efekti */
+    }
+
+    /* YENİ: Sağ Logo */
+    .right-logo {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      height: 50px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+    }
+    .right-logo img {
+      height: 100%;
+      width: auto;
+      filter: brightness(0) invert(1); /* Logoyu beyaz yapar */
+      transition: all 0.3s ease;
+    }
+    .right-logo img:hover {
+      filter: brightness(0) invert(0.8) sepia(1) saturate(5) hue-rotate(5deg); /* Altın rengi efekti */
     }
 
     /* Sağdan açılan menü */
@@ -678,6 +718,28 @@
       .social-links {
         justify-content: center;
       }
+      
+      /* YENİ: Mobil için logo stilleri */
+      .left-logo {
+        left: 60px;
+        height: 40px;
+      }
+      
+      .right-logo {
+        height: 40px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      /* YENİ: Küçük ekranlar için logo stilleri */
+      .left-logo {
+        left: 50px;
+        height: 35px;
+      }
+      
+      .right-logo {
+        height: 35px;
+      }
     }
   </style>
 </head>
@@ -690,6 +752,16 @@
       Tarayıcınız video etiketini desteklemiyor.
     </video>
     <div class="overlay"></div>
+
+    <!-- YENİ: Sol Logo -->
+    <div class="left-logo">
+      <img src="assets/güpgüp_bar_logo_page-0001-removebg-preview.png" alt="GüpGüp Logo">
+    </div>
+
+    <!-- YENİ: Sağ Logo -->
+    <div class="right-logo">
+      <img src="assets/çiftlik_restorant_onaylı_logo1_page-0001-removebg-preview.png" alt="Çiftlik Logo">
+    </div>
 
     <nav>
       <div class="hamburger" onclick="toggleMenu()">
@@ -762,28 +834,28 @@
     <h2>Galeri</h2>
     <div class="gallery-container">
       <div class="gallery-item">
-        <img src="assets/bira.jpg" alt="Bar iç mekan">
-        <div class="gallery-caption">Mekanımızdan bir görünüm</div>
+        <img src="assets/galeri1.jpg"Bar iç mekan">
+        <div class="gallery-caption">Güpgüp</div>
       </div>
       <div class="gallery-item">
-        <img src="assets/bira.jpg" alt="Kokteyl">
-        <div class="gallery-caption">Özel kokteyllerimiz</div>
+        <img src="assets/galeri 2.jpg" alt="Kokteyl">
+        <div class="gallery-caption">Güpgüp</div>
       </div>
       <div class="gallery-item">
-        <img src="assets/bira.jpg" alt="Atmosfer">
-        <div class="gallery-caption">Akşam atmosferi</div>
+        <img src="assets/galeri3.jpg" alt="Atmosfer">
+        <div class="gallery-caption">Güpgüp</div>
       </div>
       <div class="gallery-item">
-        <img src="assets/bira.jpg" alt="Mezeler">
-        <div class="gallery-caption">Lezzetli mezeler</div>
+        <img src="assets/galeri4.jpg" alt="Mezeler">
+        <div class="gallery-caption">Çiftlik Restoran</div>
       </div>
       <div class="gallery-item">
-        <img src="assets/bira.jpg" alt="Dış mekan">
-        <div class="gallery-caption">Oturma alanımız</div>
+        <img src="assets/galeri5.jpg" alt="Dış mekan">
+        <div class="gallery-caption">Çiftlik Restoran</div>
       </div>
       <div class="gallery-item">
-        <img src="assets/bira.jpg" alt="Özel etkinlik">
-        <div class="gallery-caption">Özel etkinlikler</div>
+        <img src="assets/galeri6.jpg" alt="Özel etkinlik">
+        <div class="gallery-caption">Çiftlik Restoran</div>
       </div>
     </div>
   </section>
